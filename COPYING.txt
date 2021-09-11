@@ -1,0 +1,7 @@
+PUBLIC LICENSE
+Version 1, 11 September 2021
+
+Copydiagonal (C) Marko C. 2021
+Everyone is permitted to do whatever they find themselves fit to do with this open-source project.
+Change, distribution, etc. is allowed under one certain condition: You must meet the standard requirements of wanting to copy this project, otherwise if you didn't want to then obviously you wouldn't. That's as far as it goes.
+After copying this project, do whatever you want with it.
