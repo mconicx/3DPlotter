@@ -134,7 +134,7 @@ namespace _3DPlotter
             this.gbSettings.Controls.Add(this.gbGenerate);
             this.gbSettings.Location = new System.Drawing.Point(3, 40);
             this.gbSettings.Name = "gbSettings";
-            this.gbSettings.Size = new System.Drawing.Size(189, 511);
+            this.gbSettings.Size = new System.Drawing.Size(189, 529);
             this.gbSettings.TabIndex = 13;
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Quick settings";
