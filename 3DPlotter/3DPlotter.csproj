@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
-      <HintPath>..\..\..\..\C#\LIBS\MConic\OpenTK\OpenTK.dll</HintPath>
+      <HintPath>..\..\..\Libs\OpenTK\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK.GLControl">
-      <HintPath>..\..\..\..\C#\LIBS\MConic\OpenTK\OpenTK.GLControl.dll</HintPath>
+      <HintPath>..\..\..\Libs\OpenTK\OpenTK.GLControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -90,7 +90,7 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -108,18 +108,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Shaders\grid.frag">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Shaders\grid.vert">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Shaders\plot.frag">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Shaders\plot.vert">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Shaders\grid.frag" />
+    <EmbeddedResource Include="Shaders\grid.vert" />
+    <EmbeddedResource Include="Shaders\plot.frag" />
+    <EmbeddedResource Include="Shaders\plot.vert" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

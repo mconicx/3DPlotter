@@ -4,6 +4,8 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -113,6 +115,8 @@ namespace _3DPlotter
 
                     _bUserMovedMouse = false;
                     Cursor.Position = PointToScreen(new Point(Width / 2, Height / 2));
+
+                    Debug.WriteLine($"{_fovCamera.AngleZ} / {_fovCamera.AngleX}");
                 }
             }
             else _bUserMovedMouse = true;
@@ -152,96 +156,25 @@ namespace _3DPlotter
             int iFragShaderGrid = GL.CreateShader(ShaderType.FragmentShader);
             int iFragShaderPlot = GL.CreateShader(ShaderType.FragmentShader);
 
-#if DEBUG
-            GL.ShaderSource(iVertShaderGrid, File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Shaders/grid.vert")));
-            GL.ShaderSource(iVertShaderPlot, File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Shaders/plot.vert")));
-            GL.ShaderSource(iFragShaderGrid, File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Shaders/grid.frag")));
-            GL.ShaderSource(iFragShaderPlot, File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Shaders/plot.frag")));
-#else
-            GL.ShaderSource(iVertShaderGrid,
+            // RESX NAMES
+            List<Tuple<int, string>> tplShaderCompilation = new List<Tuple<int, string>>()
+            {
+                new Tuple<int, string>(     iVertShaderGrid,    "_3DPlotter.Shaders.grid.vert"  ),
+                new Tuple<int, string>(     iVertShaderPlot,    "_3DPlotter.Shaders.plot.vert"  ),
+                new Tuple<int, string>(     iFragShaderGrid,    "_3DPlotter.Shaders.grid.frag"  ),
+                new Tuple<int, string>(     iFragShaderPlot,    "_3DPlotter.Shaders.plot.frag"  )
+            };
 
-                @"
-                    #version 330
+            Assembly assembly = Assembly.GetExecutingAssembly();
 
-                    layout(location = 0) in vec3 attrVertPos;
-
-                    uniform mat4 uniMatP, uniMatMV;
-
-                    flat out int iVertID;
-
-                    void main() {
-
-	                    gl_Position = uniMatP * uniMatMV * vec4(attrVertPos, 1.0);
-	                    iVertID = gl_VertexID;
-                    }
-
-                "
-            );
-            GL.ShaderSource(iVertShaderPlot,
-
-                @"
-                    #version 330
-
-                    layout(location = 1) in vec3 attrVertPos;
-
-                    uniform mat4 uniMatP, uniMatMV;
-                    uniform int uniIHeight;
-
-                    flat out float fPlotZ;
-
-                    float map(float value, float inMin, float inMax, float outMin, float outMax) {
-
-	                    return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
-                    }
-
-                    void main() {
-
-	                    vec3 pos = attrVertPos;
-	                    pos.x += 0.5;
-	                    pos.y += 0.5;
-
-	                    gl_Position = uniMatP * uniMatMV * vec4(pos, 1.0);
-	                    fPlotZ = map(pos.z, 0.5, uniIHeight, 0.0, 1.0);
-                    }
-
-                "
-            );
-            GL.ShaderSource(iFragShaderGrid,
-
-                @"
-                    #version 330
-
-                    out vec4 vecColor;
-
-                    flat in int iVertID;
-
-                    void main() {
-
-	                    if (iVertID == 1 || iVertID == 2)		vecColor = vec4(1.0, 0.0, 0.0, 1.0);
-	                    else if (iVertID == 3 || iVertID == 4)	vecColor = vec4(0.0, 1.0, 0.0, 1.0);
-	                    else if (iVertID == 5 || iVertID == 6)	vecColor = vec4(0.0, 0.0, 1.0, 1.0);
-	                    else vecColor =							vec4(1.0);
-                    }
-
-                "
-            );
-            GL.ShaderSource(iFragShaderPlot,
-
-                @"
-                    #version 330
-
-                    out vec4 vecColor;
-
-                    flat in float fPlotZ;
-
-                    void main() {
-
-	                    vecColor = vec4(1.0, fPlotZ, fPlotZ, 1.0);
-                    }
-
-                "
-            );
-#endif
+            foreach (Tuple<int, string> tpl in tplShaderCompilation)
+            {
+                using (Stream stream = assembly.GetManifestResourceStream(tpl.Item2))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    GL.ShaderSource(tpl.Item1, reader.ReadToEnd());
+                }
+            }
 
             GL.CompileShader(iVertShaderGrid);
             GL.CompileShader(iVertShaderPlot);
