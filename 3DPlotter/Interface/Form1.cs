@@ -11,6 +11,7 @@ namespace _3DPlotter
         private PlotControl _plotControl;
 
         private SettingsForm _formSettings;
+        private PaletteForm _formPalette;
 
         private string _szLastSavedZ;
         private int _iLastSavedX, _iLastSavedY, _iLastSavedHeight;
@@ -33,6 +34,7 @@ namespace _3DPlotter
             _ApplySettings();
 
             _formSettings = new SettingsForm();
+            _formPalette = new PaletteForm();
         }
 
         private void InitMenuButtons()
@@ -142,7 +144,7 @@ namespace _3DPlotter
             _formSettings.Show();
             _formSettings.VisibleChanged += new EventHandler(delegate (object s, EventArgs a)
             {
-                Enabled = true;
+                Enabled = !((SettingsForm)s).Visible;
             });
             _formSettings.SettingsChanged += new EventHandler<SettingsChangedArgs>(delegate (object s, SettingsChangedArgs a)
             {
@@ -150,6 +152,22 @@ namespace _3DPlotter
                 _plotControl.FOV = a.FOV;
                 _plotControl.ReverseH = a.ReverseH;
                 _plotControl.ReverseV = a.ReverseV;
+            });
+        }
+
+        private void btnPalette_Click(object sender, EventArgs e)
+        {
+            Enabled = false;
+            _formPalette.Show((Color)_plotControl.MinPaletteColor, (Color)_plotControl.MaxPaletteColor);
+            _formPalette.VisibleChanged += new EventHandler(delegate (object s, EventArgs a)
+            {
+                Enabled = !((PaletteForm)s).Visible;
+            });
+            _formPalette.NewPaletteApplied += new EventHandler<PaletteApplyArgs>(delegate (object s, PaletteApplyArgs a)
+            {
+                _plotControl.MinPaletteColor = a.MinColor;
+                _plotControl.MaxPaletteColor = a.MaxColor;
+                _plotControl.Invalidate();
             });
         }
 

@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Data;
@@ -12,6 +13,8 @@ namespace _3DPlotter.Rendering
             AddUniformLocation(GL.GetUniformLocation(shader_program_handle, "uniMatP"));
             AddUniformLocation(GL.GetUniformLocation(shader_program_handle, "uniMatMV"));
             AddUniformLocation(GL.GetUniformLocation(shader_program_handle, "uniIHeight"));
+            AddUniformLocation(GL.GetUniformLocation(shader_program_handle, "uniVecMinPalette"));
+            AddUniformLocation(GL.GetUniformLocation(shader_program_handle, "uniVecMaxPalette"));
         }
 
         public override void UpdateProjectionModelView(Matrix4 mat_projection, Matrix4 mat_modelview)
@@ -70,6 +73,13 @@ namespace _3DPlotter.Rendering
                 return (float)double.Parse((string)row["expression"]);
             }
             catch (Exception) { return 0f; }
+        }
+
+        public void UpdatePalette(Color4 min_color, Color4 max_color)
+        {
+            GL.UseProgram(_iShaderHandle);
+            GL.Uniform4(_lUniformLocations[3], min_color);
+            GL.Uniform4(_lUniformLocations[4], max_color);
         }
     }
 

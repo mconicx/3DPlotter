@@ -38,6 +38,7 @@ namespace _3DPlotter
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbGrid = new System.Windows.Forms.CheckBox();
             this.gbGenerate = new System.Windows.Forms.GroupBox();
+            this.btnPalette = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.trackBarHeight = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
@@ -182,6 +183,7 @@ namespace _3DPlotter
             // 
             // gbGenerate
             // 
+            this.gbGenerate.Controls.Add(this.btnPalette);
             this.gbGenerate.Controls.Add(this.btnApply);
             this.gbGenerate.Controls.Add(this.trackBarHeight);
             this.gbGenerate.Controls.Add(this.label2);
@@ -198,6 +200,24 @@ namespace _3DPlotter
             this.gbGenerate.TabIndex = 13;
             this.gbGenerate.TabStop = false;
             this.gbGenerate.Text = "Plot Generation";
+            // 
+            // btnPalette
+            // 
+            this.btnPalette.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPalette.BackColor = System.Drawing.Color.Transparent;
+            this.btnPalette.BackgroundImage = global::_3DPlotter.Properties.Resources.btn_palette;
+            this.btnPalette.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPalette.FlatAppearance.BorderSize = 0;
+            this.btnPalette.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnPalette.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btnPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPalette.Location = new System.Drawing.Point(7, 157);
+            this.btnPalette.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnPalette.Name = "btnPalette";
+            this.btnPalette.Size = new System.Drawing.Size(30, 30);
+            this.btnPalette.TabIndex = 15;
+            this.btnPalette.UseVisualStyleBackColor = false;
+            this.btnPalette.Click += new System.EventHandler(this.btnPalette_Click);
             // 
             // btnApply
             // 
@@ -227,6 +247,7 @@ namespace _3DPlotter
             this.trackBarHeight.Name = "trackBarHeight";
             this.trackBarHeight.Size = new System.Drawing.Size(110, 45);
             this.trackBarHeight.TabIndex = 13;
+            this.trackBarHeight.TickFrequency = 5;
             this.trackBarHeight.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBarHeight.Value = 5;
             this.trackBarHeight.Scroll += new System.EventHandler(this.trackBarHeight_Scroll);
@@ -402,6 +423,7 @@ namespace _3DPlotter
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox cbGrid;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnPalette;
     }
 }
 

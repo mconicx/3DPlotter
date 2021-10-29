@@ -64,6 +64,13 @@
     <Compile Include="Interface\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface\PaletteApplyArgs.cs" />
+    <Compile Include="Interface\PaletteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\PaletteForm.Designer.cs">
+      <DependentUpon>PaletteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interface\PlotControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -85,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\PaletteForm.resx">
+      <DependentUpon>PaletteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
@@ -127,6 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\btn_settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_palette.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

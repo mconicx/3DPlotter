@@ -40,6 +40,29 @@ namespace _3DPlotter
         public bool ReverseH { get; set; }
         public bool ReverseV { get; set; }
 
+        public Color4 MinPaletteColor
+        {
+            get => _min_palette_color;
+            set
+            {
+                _min_palette_color = value;
+                _rPlot.UpdatePalette(MinPaletteColor, MaxPaletteColor);
+            }
+        }
+        Color4 _min_palette_color;
+
+        public Color4 MaxPaletteColor
+        {
+            get => _max_palette_color;
+            set
+            {
+                _max_palette_color = value;
+                _rPlot.UpdatePalette(MinPaletteColor, MaxPaletteColor);
+            }
+        }
+        Color4 _max_palette_color;
+
+
         public PlotControl()
         {
             Load += PlotControl_Load;
@@ -62,6 +85,8 @@ namespace _3DPlotter
 
             // Plot model
             _rPlot = new Plot(PrimitiveType.Quads, _iShaderProgramPlot);
+            MinPaletteColor = Color.Red;
+            MaxPaletteColor = Color.White;
 
             // Camera
             _fovCamera = new PerspectiveCamera();
